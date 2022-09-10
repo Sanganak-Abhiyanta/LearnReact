@@ -29,7 +29,7 @@ export default function BlogList({blogs,title,handleClick}) {
         <div className="blog-preview" key={blog.id}>
           <h2>{blog.title}</h2>
           <p>Written by {blog.author}</p>
-          <button onClick={handleClick}>Delete Blog</button>
+          <button onClick={()=>handleClick(blog.id)}>Delete Blog</button>
         </div>
       ))}
     </div>
