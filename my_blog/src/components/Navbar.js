@@ -1,12 +1,13 @@
 import React from "react";
+import {Link} from 'react-router-dom'
 
 export default function Navbar() {
   return (
     <nav className="navbar">
       <h1>My Blog</h1>
       <div className="links">
-        <a href="/">Home</a>
-        <a href="/">New Blog</a>
+        <Link to="/">Home</Link>
+        <Link to="/create">New Blog</Link>
       </div>
     </nav>
   );
