@@ -348,14 +348,14 @@ export class News extends Component {
           <div className="col-md-4">
 
             {this.state.articles.map((element)=>{
-              return console.log(element);
-            })}
-            <NewsItem
+              return <NewsItem
               newsUrl="Todo"
               title="mytitle"
               description="My Descripton"
               imageUrl="https://cdn.cnn.com/cnnnext/dam/assets/220907225706-07-myles-sanderson-arrest-super-tease.jpg"
-            />
+            />;
+            })}
+            
           </div>
         </div>
       </div>
