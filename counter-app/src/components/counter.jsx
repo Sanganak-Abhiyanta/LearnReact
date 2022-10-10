@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 export default class Counter extends Component {
   state = {
-    count: 0,
+    count: this.props.value,
     // imageUrl:"https://picsum.photos/500"
     // tags: ["tag","tag1","Tag3", "TAG4"],
   };
