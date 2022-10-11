@@ -27,27 +27,35 @@ export default class Counter extends Component {
   // }
   // ==========================================================================================
   // Handling an event<========================================
-  handleIncrement=()=>
-  {
-    this.setState({count:this.state.count+1})
-  }
-  handleDecrement=()=>{
-    this.setState({count:this.state.count-1})
-  }
-  handleReset=()=>{
-    this.setState({count:0})
-  }
+  handleIncrement = () => {
+    this.setState({ count: this.state.count + 1 });
+  };
+  handleDecrement = () => {
+    this.setState({ count: this.state.count - 1 });
+  };
+  handleReset = () => {
+    this.setState({ count: 0 });
+  };
   // =========================>Bining Event Handlers<===============================================
 
   render() {
     return (
       <>
         {/* <img src={this.state.imageUrl} alt="" srcset="" /> */}
-
+        {this.props.children}
         <span className={this.getButtonClasses()}>{this.formatCount()}</span>
-        <button onClick={this.handleIncrement} className="btn btn-secondary mx-2">Increment</button>
-        <button onClick={this.handleDecrement} className="btn btn-success mx-2">Decrement</button>
-        <button onClick={this.handleReset} className="btn btn-warning mx-2">Reset</button>
+        <button
+          onClick={this.handleIncrement}
+          className="btn btn-secondary mx-2"
+        >
+          Increment
+        </button>
+        <button onClick={this.handleDecrement} className="btn btn-success mx-2">
+          Decrement
+        </button>
+        <button onClick={this.handleReset} className="btn btn-warning mx-2">
+          Reset
+        </button>
         {/* =================Map method to render javascript objects and array ==================================*/}
         {/* <ol>
           {this.state.tags.map((tag) => (

@@ -11,7 +11,9 @@ export default function Counters() {
   return (
     <>
       {counter.map(m =>
-        <><Counter key={m.id} value={m.value} />
+        <><Counter key={m.id} value={m.value}>
+          <h2>CounterApp #{m.id}</h2>
+        </Counter>
         <br /></>
       )}
       
