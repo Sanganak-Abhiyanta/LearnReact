@@ -2,31 +2,8 @@ import React, { Component } from "react";
 
 export default class Counter extends Component {
   state = {
-    count: this.props.value,
-    // imageUrl:"https://picsum.photos/500"
-    // tags: ["tag","tag1","Tag3", "TAG4"],
+    count: this.props.counter.value,
   };
-  // =========================incomponet style==================================
-  // style={
-  //   fontSize:59,
-  //   fontWeight:"bold"
-  // }
-  // =================================================================================
-  // conditional Render
-  // renderTag() {
-  //   if (this.state.tags.length === 0) {
-  //     return <h1>There are no Tags here!</h1>;
-  //   }
-  //   return (
-  //     <ol>
-  //       {this.state.tags.map((tag) => (
-  //         <li key={tag}>{tag}</li>
-  //       ))}
-  //     </ol>
-  //   );
-  // }
-  // ==========================================================================================
-  // Handling an event<========================================
   handleIncrement = () => {
     this.setState({ count: this.state.count + 1 });
   };
@@ -40,7 +17,7 @@ export default class Counter extends Component {
 
   render() {
     return (
-      <>
+      <div>
         {/* <img src={this.state.imageUrl} alt="" srcset="" /> */}
         {this.props.children}
         <span className={this.getButtonClasses()}>{this.formatCount()}</span>
@@ -56,21 +33,10 @@ export default class Counter extends Component {
         <button onClick={this.handleReset} className="btn btn-warning mx-2">
           Reset
         </button>
-        {/* =================Map method to render javascript objects and array ==================================*/}
-        {/* <ol>
-          {this.state.tags.map((tag) => (
-            <li key={tag}>{tag}</li>
-          ))}
-        </ol> */}
-
-        {/* ===========================================Conditional Rendering============================== */}
-        {/* {
-        this.renderTag()  
-        }
-        {
-        this.state.tags.length===0 && "Please create the tags"
-        } */}
-      </>
+        <button onClick={()=>this.props.onDelete(this.props.counter.id)} className="btn btn-danger m-2">
+          Delete
+        </button>
+      </div>
     );
   }
   // ==============================================
