@@ -29,10 +29,11 @@ export default class Counter extends Component {
           onClick={() => {
             this.props.handleReset(this.props.counter);
           }}
-          className="btn btn-warning mx-2"
+          className="btn btn-warning mx-2 btn-sm"
         >
           Reset
         </button>
+
         <button
           onClick={() => this.props.onDelete(this.props.counter.id)}
           className="btn btn-danger m-2"
@@ -50,7 +51,7 @@ export default class Counter extends Component {
   }
   // =========================================================
   formatCount() {
-    const { count } = this.props.counter;
-    return count === 0 ? "Zero" : count;
+    const { value } = this.props.counter;
+    return value === 0 ? "Zero" : value;
   }
 }
