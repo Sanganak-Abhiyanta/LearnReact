@@ -1,24 +1,36 @@
 import React, { Component } from "react";
 import { getMovies } from "../services/fakeMovieService";
 import Like from "./common/Like";
+import Pagination from "./common/Pagination";
 export default class Movies extends Component {
   state = {
     movies: getMovies(),
+    currentPage: 1,
+    pageSize: 4,
   };
+
+  // ==================================================> HandleDelete<===================================================
   hanleDelete = (movie) => {
     const movies = this.state.movies.filter((m) => m._id !== movie._id);
     this.setState({ movies: movies });
   };
-  handleLiked=(movie)=>{
-    const movies=[...this.state.movies];
-    const index=movies.indexOf(movie);
-    movies[index]={...movies[index]};
-    movies[index].liked=!movies[index].liked;
-    this.setState({movies});
-
-  }
+  // ==================================>HandleLiked<===============================================
+  handleLiked = (movie) => {
+    const movies = [...this.state.movies];
+    const index = movies.indexOf(movie);
+    movies[index] = { ...movies[index] };
+    movies[index].liked = !movies[index].liked;
+    this.setState({ movies });
+  };
+  // ================================>HandlePageChange<=========================================================
+  handlePageChange = (page) => {
+    this.setState({ currentPage: page });
+    // console.log("Page Changed ", page);
+  };
   render() {
     const { length: count } = this.state.movies;
+    // ==========================>we can use object destructuring <============================
+    const { currentPage, pageSize } = this.state;
     if (count === 0) return <h1>There are no movies in the Database</h1>;
     return (
       <>
@@ -43,7 +55,10 @@ export default class Movies extends Component {
                   <td>{movie.numberInStock}</td>
                   <td>{movie.dailyRentalRate}</td>
                   <td>
-                  <Like onClick={()=> this.handleLiked(movie)} liked={movie.liked}/>
+                    <Like
+                      onClick={() => this.handleLiked(movie)}
+                      liked={movie.liked}
+                    />
                   </td>
                   <td>
                     <button
@@ -58,6 +73,12 @@ export default class Movies extends Component {
             })}
           </tbody>
         </table>
+        <Pagination
+          itemsCount={count}
+          currentPage={currentPage}
+          pageSize={pageSize}
+          onPageChange={this.handlePageChange}
+        />
       </>
     );
   }
