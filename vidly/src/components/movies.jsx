@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { getMovies } from "../services/fakeMovieService";
+import Paginate from "../utils/Paginate";
 import Like from "./common/Like";
 import Pagination from "./common/Pagination";
 export default class Movies extends Component {
@@ -27,11 +28,14 @@ export default class Movies extends Component {
     this.setState({ currentPage: page });
     // console.log("Page Changed ", page);
   };
+
   render() {
     const { length: count } = this.state.movies;
     // ==========================>we can use object destructuring <============================
-    const { currentPage, pageSize } = this.state;
+    const { currentPage, pageSize, movies: allMovies } = this.state;
+
     if (count === 0) return <h1>There are no movies in the Database</h1>;
+    const movies = Paginate(allMovies, currentPage, pageSize);
     return (
       <>
         <p>Showing {count} movies in the database.</p>
@@ -47,7 +51,7 @@ export default class Movies extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.movies.map((movie) => {
+            {movies.map((movie) => {
               return (
                 <tr key={movie._id}>
                   <td>{movie.title}</td>
