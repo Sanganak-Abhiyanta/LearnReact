@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function ListGourp(props) {
-  const { items, textProperty, valueProperty, onItemSelect } = props;
+  const { items, textProperty, valueProperty, onItemSelect,selectedItems } = props;
 
   return (
     <>
@@ -10,7 +10,7 @@ export default function ListGourp(props) {
           <li
             onClick={() => onItemSelect(item)}
             key={item[valueProperty]}
-            className="list-group-item"
+            className={item!==selectedItems?"list-group-item":"list-group-item active"}
           >
             {item[textProperty]}
           </li>

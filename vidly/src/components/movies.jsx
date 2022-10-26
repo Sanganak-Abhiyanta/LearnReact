@@ -14,7 +14,8 @@ export default class Movies extends Component {
   };
   // ================> ComponentDidmount <================
   componentDidMount() {
-    this.setState({ movies: getMovies(), genres: getGenres() });
+    const genres=[{name:"All Genres"},...getGenres()];
+    this.setState({ movies: getMovies(), genres });
   }
   // ==================================================> HandleDelete<===================================================
   hanleDelete = (movie) => {
@@ -37,16 +38,18 @@ export default class Movies extends Component {
 
   // ===================> HandleGenresSelect <=============
   handleGenresSelect = (genres) => {
-    this.setState({selectedGenre:genres});
+    this.setState({selectedGenre:genres,currentPage:1});
   };
 
   render() {
     const { length: count } = this.state.movies;
     // ==========================>we can use object destructuring <============================
-    const { currentPage, pageSize, movies: allMovies } = this.state;
+    const { currentPage,selectedGenre, pageSize, movies: allMovies } = this.state;
 
     if (count === 0) return <h1>There are no movies in the Database</h1>;
-    const movies = Paginate(allMovies, currentPage, pageSize);
+    // now we need to filter movies according to genre
+    const filtered=selectedGenre && selectedGenre._id?allMovies.filter(m=>m.genre._id===selectedGenre._id):allMovies;
+    const movies = Paginate(filtered, currentPage, pageSize);
     return (
       <div className="m-5">
         <div className="row">
@@ -59,7 +62,7 @@ export default class Movies extends Component {
           </div>
           <div className="col">
             {" "}
-            <p>Showing {count} movies in the database.</p>
+            <p>Showing {filtered.length} movies in the database.</p>
             <table className="table">
               <thead>
                 <tr>
@@ -99,7 +102,8 @@ export default class Movies extends Component {
               </tbody>
             </table>
             <Pagination
-              itemsCount={count}
+              // itemsCount={count}
+              itemsCount={filtered.length}
               currentPage={currentPage}
               pageSize={pageSize}
               onPageChange={this.handlePageChange}
