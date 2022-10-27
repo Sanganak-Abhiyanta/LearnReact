@@ -5,16 +5,18 @@ import Pagination from "./common/Pagination";
 import ListGourp from "./common/ListGourp";
 import { getGenres } from "../services/fakeGenreService";
 import MoviesTable from "./MoviesTable";
+import _ from "lodash";
 export default class Movies extends Component {
   state = {
     movies: [],
     genres: [],
     currentPage: 1,
     pageSize: 4,
+    sortColumn: { path: "title", order: "asc" },
   };
   // ================> ComponentDidmount <================
   componentDidMount() {
-    const genres = [{ name: "All Genres" }, ...getGenres()];
+    const genres = [{ _id: "", name: "All Genres" }, ...getGenres()];
     this.setState({ movies: getMovies(), genres });
   }
   // ==================================================> HandleDelete<===================================================
@@ -41,6 +43,18 @@ export default class Movies extends Component {
     this.setState({ selectedGenre: genres, currentPage: 1 });
   };
 
+  // =====================> handleSort method <========================
+  handleSort = (path) => {
+    const sortColumn = { ...this.state.sortColumn };
+    if (sortColumn.path === path)
+      sortColumn.order = sortColumn.order === "asc" ? "desc" : "asc";
+    else {
+      sortColumn.path = path;
+      sortColumn.order = "asc";
+    }
+    this.setState({ sortColumn });
+  };
+
   render() {
     const { length: count } = this.state.movies;
     // ==========================>we can use object destructuring <============================
@@ -49,6 +63,7 @@ export default class Movies extends Component {
       selectedGenre,
       pageSize,
       movies: allMovies,
+      sortColumn,
     } = this.state;
 
     if (count === 0) return <h1>There are no movies in the Database</h1>;
@@ -57,7 +72,9 @@ export default class Movies extends Component {
       selectedGenre && selectedGenre._id
         ? allMovies.filter((m) => m.genre._id === selectedGenre._id)
         : allMovies;
-    const movies = Paginate(filtered, currentPage, pageSize);
+    const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
+
+    const movies = Paginate(sorted, currentPage, pageSize);
     return (
       <div className="m-5">
         <div className="row">
@@ -75,6 +92,7 @@ export default class Movies extends Component {
               movies={movies}
               onDelete={this.hanleDelete}
               onLike={this.handleLiked}
+              onSort={this.handleSort}
             />
             <Pagination
               // itemsCount={count}
