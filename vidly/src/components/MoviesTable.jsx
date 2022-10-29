@@ -1,7 +1,8 @@
 import Like from "./common/Like";
 import React, { Component } from "react";
-import TableHeaderSort from "./common/TableHeaderSort";
-import TableBody from "./common/TableBody";
+// import TableHeaderSort from "./common/TableHeaderSort";
+// import TableBody from "./common/TableBody";
+import Table from "./common/Table";
 //at first we use functional component and then we use class component because we have to
 //
 export default class MoviesTable extends Component {
@@ -12,11 +13,16 @@ export default class MoviesTable extends Component {
     { path: "dailyRentalRate", label: "Rate" },
     {
       key: "like",
-      content:movie=> (<Like onClick={() => this.props.onLike(movie)} liked={movie.liked}></Like>)
+      content: (movie) => (
+        <Like
+          onClick={() => this.props.onLike(movie)}
+          liked={movie.liked}
+        ></Like>
+      ),
     }, //for Like
     {
       key: "delete",
-      content:movie=> (
+      content: (movie) => (
         <button
           onClick={() => this.props.onDelete(movie)}
           className="btn btn-danger btn-sm"
@@ -30,15 +36,7 @@ export default class MoviesTable extends Component {
     // const { movies, onDelete, onLike, sortColumn, onSort } = this.props;
     const { movies, sortColumn, onSort } = this.props;
     return (
-      <table className="table">
-        <TableHeaderSort
-          columns={this.columns}
-          sortColumn={sortColumn}
-          onSort={onSort}
-        />
-        <TableBody data={movies} columns={this.columns} />
-       
-      </table>
+      <Table columns={this.columns} sortColumn={sortColumn} onSort={onSort} data={movies} />
     );
   }
 }

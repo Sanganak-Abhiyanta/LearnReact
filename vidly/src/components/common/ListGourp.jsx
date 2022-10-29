@@ -10,7 +10,7 @@ export default function ListGourp(props) {
           <li
             onClick={() => onItemSelect(item)}
             key={item[valueProperty]}
-            className={item!==selectedItems?"list-group-item":"list-group-item active"}
+            className={item!==selectedItems?"list-group-item clickAble":"list-group-item active clickAble"}
           >
             {item[textProperty]}
           </li>
