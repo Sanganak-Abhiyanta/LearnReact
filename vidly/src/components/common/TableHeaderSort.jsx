@@ -19,7 +19,7 @@ export default class TableHeaderSort extends Component {
       <thead>
         <tr>
           {this.props.columns.map(column => 
-            (<th key={column.path} onClick={() => this.raiseSort(column.path)}>{column.label}</th>)
+            (<th key={column.path || column.key} onClick={() => this.raiseSort(column.path)}>{column.label}</th>)
           )}
         </tr>
       </thead>
