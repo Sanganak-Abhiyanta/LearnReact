@@ -16,7 +16,7 @@ export default class App extends Component {
           <NavBar />
           <div className="container">
             <Routes>
-              <Route path="/products/:id" element={<ProductDetails/>}/>
+              <Route path="/products/:id" render={()=> <ProductDetails id={id} />}/>
               <Route path="/products" element={<Products sortBy="newest" />}/>
               <Route path="/posts" element={<Posts/>}/>
               <Route path="/admin" element={<Dashboard/>}/>
